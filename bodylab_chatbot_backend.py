@@ -12,6 +12,15 @@ genai.configure(api_key=GEMINI_API_KEY)
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = Flask(__name__)
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        "service": "Bodylab24 AI Chatbot API",
+        "endpoints": {
+            "/chat": "POST - Main chat endpoint",
+            "/health": "GET - Health check"
+        }
+    })
 CORS(app)
 
 FULL_SYSTEM_PROMPT = """You are the Bodylab24 AI Shopping Assistant, an expert in sports nutrition, fitness supplements, and healthy lifestyle products. You help customers find the perfect products for their individual fitness goals, dietary needs, and training routines.
@@ -227,3 +236,4 @@ def health():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
